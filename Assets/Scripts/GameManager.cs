@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -31,6 +32,8 @@ public class GameManager : MonoBehaviour
     private bool isGameStarted = false;
     private bool isBoardClear = true;
     public GameObject camera;
+    public SoundManager sounds;
+    public Animator UIAnimator;
 
     public GameObject[,] board;
 
@@ -89,6 +92,7 @@ public class GameManager : MonoBehaviour
         }
         if (goals.Count > 0 && completedGoals == goals.Count)
         {
+            sounds.PlayWinSound();
             StartCoroutine(nextStage());
         }
     }
@@ -108,6 +112,10 @@ public class GameManager : MonoBehaviour
         {
             boardDesign = maps[currentMap];
             StartCoroutine(BuildBoard());
+        }else
+        {
+            UIAnimator.SetTrigger("FadeIn");
+            Invoke("EndGame", 2);
         }
     }
 
@@ -120,6 +128,7 @@ public class GameManager : MonoBehaviour
 
     private void ShakeStage()
     {
+        sounds.PlayBreakRocks();
         for (int i = 0; i < boardSizeX; i++)
         {
             for (int j = 0; j < boardSizeY; j++)
@@ -144,7 +153,8 @@ public class GameManager : MonoBehaviour
         boardSizeX = boardMap.Length;
         boardSizeY = boardMap[0].Length;
         board = new GameObject[boardSizeX, boardSizeY];
-        StartCoroutine(MoveToPosition(camera, new Vector3(boardSizeX / 2, camera.transform.position.y, camera.transform.position.z)));
+        StartCoroutine(MoveToPosition(camera, new Vector3(((float)boardSizeX-1) / 2, camera.transform.position.y, camera.transform.position.z)));
+        Invoke("StartCreateBoardSound", 1f);
         for (int i = 0; i < boardSizeX; i++)
         {
             for (int j = 0; j < boardSizeY; j++)
@@ -189,10 +199,13 @@ public class GameManager : MonoBehaviour
         {
             playerControllers[i].ActivateMovement();
         }
+        //sounds.StopCreateBoardSound();
+        Invoke("StopCreateBoardSound", 1f);
     }
 
     private IEnumerator DestroyBoard()
     {
+        StartCreateBoardSound();
         for (int i = 0; i < boardSizeX; i++)
         {
             for (int j = 0; j < boardSizeY; j++)
@@ -205,6 +218,7 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
+        StopCreateBoardSound();
         isBoardClear = true;
     }
 
@@ -226,4 +240,21 @@ public class GameManager : MonoBehaviour
         }
         return false;
     }
+
+    void StartCreateBoardSound()
+    {
+        sounds.StartCreateBoardSound();
+    }
+
+    void StopCreateBoardSound()
+    {
+        sounds.StopCreateBoardSound();
+    }
+
+    void EndGame()
+    {
+        UIAnimator.SetTrigger("FadeIn");
+        SceneManager.LoadScene("Credits");
+    }
+
 }

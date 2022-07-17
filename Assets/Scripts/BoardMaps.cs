@@ -40,6 +40,15 @@ public class BoardMaps : MonoBehaviour
             "EG0GG0GE\n" +
             "EGGGGGGE\n" +
             "EEEEEEEE",
+
+            "WWWWWWWWWWW\n" +
+            "WGGGWGGDGGW\n" +
+            "WGW5WGGGGGW\n" +
+            "WGWWWGEGGGW\n" +
+            "W0GGGGGGGDW\n" +
+            "WWGGGGWGGGW\n" +
+            "W1GGGGGGGDW\n" +
+            "WWWWWWWWWWW"
     };
 
     public string[] GetMaps ()

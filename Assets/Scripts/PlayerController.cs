@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     public bool canMove = false;
     public GameManager board;
     public int id;
+    public AudioSource moveSound;
 
     //private float currentAngle = 0;
     //private Vector3 anchor;
@@ -71,6 +72,7 @@ public class PlayerController : MonoBehaviour
                 right = bottom;
                 bottom = aux;
                 positionX--;
+                moveSound.Play();
             }
         }
         else if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
@@ -84,6 +86,7 @@ public class PlayerController : MonoBehaviour
                 left = bottom;
                 bottom = aux;
                 positionX++;
+                moveSound.Play();
             }
         }
         else if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
@@ -97,6 +100,7 @@ public class PlayerController : MonoBehaviour
                 backward = bottom;
                 bottom = aux;
                 positionY++;
+                moveSound.Play();
             }
         }
         else if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
@@ -110,6 +114,7 @@ public class PlayerController : MonoBehaviour
                 forward = bottom;
                 bottom = aux;
                 positionY--;
+                moveSound.Play();
             }
         }
         if(board.boardMap[positionX][positionY] =='E')
