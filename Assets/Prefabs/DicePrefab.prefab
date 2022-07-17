@@ -127,7 +127,7 @@ BoxCollider:
   m_GameObject: {fileID: 8125028967316369843}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 0.009916214, y: 0.009916212, z: 0.009916212}
   m_Center: {x: 0, y: 0, z: 0}
@@ -143,10 +143,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56a8a2379fe32f24da17e6601884104c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rollSpeed: 5
+  rollSpeed: 5
   delayToStart: 3
+  positionX: 0
+  positionY: 0
   top: 3
   canMove: 0
+  board: {fileID: 0}
+  id: 0
 --- !u!4 &8901987402350258953 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 31c39dedcc58367409edf453bc3c3436,

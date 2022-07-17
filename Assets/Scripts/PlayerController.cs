@@ -4,11 +4,10 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private float _rollSpeed = 5;
-    public float delayToStart = 3;
+    [SerializeField] private float rollSpeed = 25; //350 for rolls on Update
     public int positionX = 0;
     public int positionY = 0;
-    private bool _isMoving;
+    private bool isMoving;
     public int top = 3;
     private int left = 6;
     private int forward = 5;
@@ -19,15 +18,18 @@ public class PlayerController : MonoBehaviour
     public GameManager board;
     public int id;
 
+    //private float currentAngle = 0;
+    //private Vector3 anchor;
+    //private Vector3 axis;
+
     public void StartPlayer(int initialX, int initialY)
     {
         positionX = initialX;
         positionY = initialY;
         this.id = initialX;
-        Invoke("ActivateMovement", delayToStart);
     }
 
-    private void ActivateMovement()
+    public void ActivateMovement()
     {
         canMove = true;
     }
@@ -39,7 +41,24 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        if (_isMoving || !canMove) return;
+        //if (!canMove) return;
+
+        //if (isMoving)
+        //{
+        //    currentAngle = currentAngle + rollSpeed * Time.deltaTime;
+        //    transform.RotateAround(anchor, axis, rollSpeed * Time.deltaTime);
+        //    if (currentAngle >= 90)
+        //    {
+        //        isMoving = false;
+        //        currentAngle = 0;
+        //    }
+        //    else
+        //    {
+        //        return;
+        //    }
+        //}
+
+        if (isMoving || !canMove) return;
 
         if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
         {
@@ -93,26 +112,29 @@ public class PlayerController : MonoBehaviour
                 positionY--;
             }
         }
-
-
-
-
-        void Assemble(Vector3 dir)
+        if(board.boardMap[positionX][positionY] =='E')
         {
-            var anchor = transform.position + (Vector3.down + dir) * 0.5f;
-            var axis = Vector3.Cross(Vector3.up, dir);
-            StartCoroutine(Roll(anchor, axis));
+            gameObject.AddComponent<Rigidbody>();
+            StopPlayer();
+            board.ResetStage();
         }
+    }
+    void Assemble(Vector3 dir)
+    {
+        var anchor = transform.position + (Vector3.down + dir) * 0.5f;
+        var axis = Vector3.Cross(Vector3.up, dir);
+        //isMoving = true;
+        StartCoroutine(Roll(anchor, axis));
     }
 
     private IEnumerator Roll(Vector3 anchor, Vector3 axis)
     {
-        _isMoving = true;
-        for (var i = 0; i < 90 / _rollSpeed; i++)
+        isMoving = true;
+        for (var i = 0; i < 90 / rollSpeed; i++)
         {
-            transform.RotateAround(anchor, axis, _rollSpeed);
+            transform.RotateAround(anchor, axis, rollSpeed);
             yield return new WaitForSeconds(0.01f);
         }
-        _isMoving = false;
+        isMoving = false;
     }
 }

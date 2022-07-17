@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 685987601794218393}
   - component: {fileID: 556203493396846921}
+  - component: {fileID: 82098917}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -46,8 +47,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   groundPrefab: {fileID: 1709404656918487677, guid: b07937175c1583441b654fb535093fb8,
     type: 3}
-  wallPrefab: {fileID: 0}
+  wallPrefab: {fileID: 5534399909638389517, guid: d2ea3a725e50d414aaaf73221cae0340,
+    type: 3}
   dicePrefab: {fileID: 8935299017949331227, guid: 2501ddc0e971ffd4dbd94214ee6c6d42,
+    type: 3}
+  goalPrefab: {fileID: 978505824919167038, guid: f6052c7b14205d546b9701b61de41a03,
     type: 3}
   buildSpeed: 30
   creationSpeed: 0.1
+  boardMap: []
+  currentMap: 1
+--- !u!114 &82098917
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5314929931201828927}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5bfc91e42374c845ab219365818478e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
