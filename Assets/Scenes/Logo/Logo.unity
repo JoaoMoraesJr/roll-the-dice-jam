@@ -379,7 +379,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1ceb0bd42f671d408c3d38e45a789af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextSceneName: MainGame
+  nextSceneName: Intro
   timeDuration: 4.25
 --- !u!95 &1035906844
 Animator:

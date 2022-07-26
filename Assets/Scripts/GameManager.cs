@@ -34,6 +34,7 @@ public class GameManager : MonoBehaviour
     public GameObject camera;
     public SoundManager sounds;
     public Animator UIAnimator;
+    public bool dialogFinished = false;
 
     public GameObject[,] board;
 
@@ -42,7 +43,7 @@ public class GameManager : MonoBehaviour
     {
         maps = GetComponent<BoardMaps>().GetMaps();
         boardDesign = maps[currentMap];
-        StartCoroutine(BuildBoard());
+        //StartCoroutine(BuildBoard());
         //StartCoroutine(DestroyBoard());
     }
 
@@ -53,6 +54,11 @@ public class GameManager : MonoBehaviour
         {
             checkGoals();
         }
+    }
+
+    public void StartGame ()
+    {
+        StartCoroutine(BuildBoard());
     }
 
     public bool isValidPosition(int x, int y, int id)
@@ -114,8 +120,8 @@ public class GameManager : MonoBehaviour
             StartCoroutine(BuildBoard());
         }else
         {
-            UIAnimator.SetTrigger("FadeIn");
-            Invoke("EndGame", 2);
+            Debug.Log("Finished");
+            UIAnimator.SetTrigger("FinalDialogue");
         }
     }
 
@@ -251,9 +257,8 @@ public class GameManager : MonoBehaviour
         sounds.StopCreateBoardSound();
     }
 
-    void EndGame()
+    public void EndGame()
     {
-        UIAnimator.SetTrigger("FadeIn");
         SceneManager.LoadScene("Credits");
     }
 
